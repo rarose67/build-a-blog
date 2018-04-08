@@ -1,0 +1,21 @@
+html{
+    background-color: azure;
+}
+
+form {
+    background-color: #eee;
+    font: 16px sans-serif;
+    border-radius: 10px;
+}
+
+.error {
+    color: red;
+}
+
+.ierror {
+    background-color: yellow;
+}
+
+.page-title {
+    text-align: center;
+}
