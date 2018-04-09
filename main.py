@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -36,7 +37,12 @@ def blog_list():
         blogs = Blog.query.filter_by(id=blog_id).all()
         return render_template('blog-entry.html',title="Blog Entry", blogs=blogs)
     else:
-        blogs = Blog.query.all()
+        #show blog entries in asending order 
+        #blogs = Blog.query.all()
+
+        #show blog entries in desending order 
+        blogs = Blog.query.order_by((desc(Blog.id))).all()
+
         return render_template('blog-listing.html',title="Blog List", blogs=blogs)
 
 @app.route('/new-post')
@@ -69,12 +75,12 @@ def add_entry():
     error_query = ""
     
     if (blog_name == ""):
-        # the user tried to enter an invalid username
+        # the user tried to enter an invald blog title
         # so we redirect back to the front page and tell them what went wrong
         title_error = "Please enter title for your blog entry."
     
     if (blog_text == ""):
-        # the user tried to enter an invalid password,
+        # the user tried to enter a blank post body,
         # so we redirect back to the front page and tell them what went wrong
         body_error = "Please enter the body of your blog entry."
 
