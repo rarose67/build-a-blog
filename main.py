@@ -34,7 +34,6 @@ def blog_list():
     if(blog_id):
         blog_id = int(blog_id)
         blogs = Blog.query.filter_by(id=blog_id).all()
-        #print("\n id is:", blog_id, "\n blog is:", blog.title, ",", blog.body, "\n")
         return render_template('blog-entry.html',title="Blog Entry", blogs=blogs)
     else:
         blogs = Blog.query.all()
@@ -94,7 +93,12 @@ def add_entry():
         db.session.add(new_blog)
         db.session.commit()
         
-        return redirect("/blog")
+        #Use Case 1
+        #return redirect("/blog")
+
+        #Use Case 2 
+        blogs = Blog.query.filter_by(id=new_blog.id).all()
+        return render_template('blog-entry.html',title="Blog Entry", blogs=blogs)
 
 if __name__ == "__main__":
     app.run()
