@@ -39,8 +39,11 @@ def blog_list():
     # in the query argument
     if(blog_id):
         blog_id = int(blog_id)
-        blogs = Blog.query.filter_by(id=blog_id).all()
-        return render_template('blog-entry.html', title="Blog Entry", blogs=blogs)
+        #blogs = Blog.query.filter_by(id=blog_id).all()
+        #return render_template('blog-entry.html', title="Blog Entry", blogs=blogs)
+        blog = Blog.query.filter_by(id=blog_id).first()
+        print("\n Blog name:", blog.title, "body:", blog.body, "\n")
+        return render_template('blog-entry.html', title="Blog Entry", blog=blog)
     else:
         #show all blog entries in asending order 
         #blogs = Blog.query.all()
@@ -115,8 +118,11 @@ def add_entry():
 
         #Use Case 2
         #Show the new blog entry
-        blogs = Blog.query.filter_by(id=new_blog.id).all()
-        return render_template('blog-entry.html',title="Blog Entry", blogs=blogs)
+
+        #blogs = Blog.query.filter_by(id=new_blog.id).all()
+        #return render_template('blog-entry.html',title="Blog Entry", blogs=blogs)
+        blog = Blog.query.filter_by(id=new_blog.id).first()
+        return render_template('blog-entry.html',title="Blog Entry", blog=blog)
 
 if __name__ == "__main__":
     app.run()
